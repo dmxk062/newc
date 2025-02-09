@@ -21,6 +21,6 @@ Result(usize) fd_read(u32 fd, void* buf, usize size) {
     return_SysRes(usize, res);
 }
 
-void print(String str) {
+void print(Str str) {
     fd_write(IO_Stdout, S_as_rbuf(str));
 }

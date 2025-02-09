@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct String {
+typedef struct Str {
     /*
      * Size of the byte array used to store the string
      * if 0, string is read only or a view
@@ -18,9 +18,9 @@ typedef struct String {
      * Buffer storing the string's content
      */
     char* buf;
-} String;
-Result_define_with_ptr(String);
+} Str;
+Result_define_with_ptr(Str);
 
-#define S(_strlit) ((String){.size = 0, .len = sizeof(_strlit), .buf = _strlit})
+#define S(_strlit) ((Str){.size = 0, .len = sizeof(_strlit), .buf = _strlit})
 #define S_as_rbuf(_str) _str.buf, _str.len
 #define S_as_wbuf(_str) _str.buf, _str.size

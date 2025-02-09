@@ -21,4 +21,4 @@ Result(u32) fd_open(const zstr path, enum OpenFlag flags, u32 mode);
 
 Result(usize) fd_write(u32 fd, const void* const buf, usize size);
 Result(usize) fd_read(u32 fd, void* buf, usize size);
-void print(String str);
+void print(Str str);
