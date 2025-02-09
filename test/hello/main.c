@@ -2,9 +2,14 @@
 #include "io.h"
 #include "types.h"
 
-static Str message = S("Hello World!\n");
+u8 start(i32 argc, Str argv[]) {
+    if (argc == 1) {
+        print(S("Hello, World!\n"));
+    } else {
+        print(S("Hello, "));
+        print(argv[1]);
+        print(S("!\n"));
+    }
 
-i32 main(i32 argc, zstr argv[]) {
-
-    print(message);
+    return 0;
 }

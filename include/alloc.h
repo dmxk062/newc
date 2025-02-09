@@ -6,7 +6,7 @@
  * Force Allocator
  * Exits program on allocation failure
  */
-void* _Nonnull alloc(usize size);
+void* alloc(usize size);
 
 /*
  * Try Allocator

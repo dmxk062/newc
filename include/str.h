@@ -21,6 +21,8 @@ typedef struct Str {
 } Str;
 Result_define_with_ptr(Str);
 
+Str Str_view_zstr(zstr c_str);
+
 #define S(_strlit) ((Str){.size = 0, .len = sizeof(_strlit), .buf = _strlit})
 #define S_as_rbuf(_str) _str.buf, _str.len
 #define S_as_wbuf(_str) _str.buf, _str.size
