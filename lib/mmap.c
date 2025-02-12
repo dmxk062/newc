@@ -10,15 +10,17 @@ Result(void_p) mmap(untyped addr, u64 len, enum MapProt prot, enum MapFlag flags
             (untyped)flags,
             (untyped)fd,
             (untyped)offset);
-    if (ret < 0) 
-        return Err(void_p, -ret);
-    else
-        return Ok(void_p, (untyped)ret);
+    if (ret < 0) {
+        return Err(void_p, ret);
+    } else {
+        return Ok(void_p, (void*)ret);
+    }
 }
 
 
 errno mmunmap(untyped addr, u64 len) {
-    return (errno) -(i64)Syscall_2(Sys_MUNMAP,
+    i64 ret = (i64)Syscall_2(Sys_MUNMAP,
             addr,
             (untyped)len);
+    return ret;
 }
