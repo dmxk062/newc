@@ -116,7 +116,6 @@ Result(usize) buf_format_float(char* dst, usize dst_len, f64 val,
     return Ok(usize, total_len);
 }
 
-
 static errno format_writeout_buffer(Format_callback fn, void* data,
                                     char* buffer, usize len) {
     while (len > 0) {
@@ -162,6 +161,27 @@ Result(usize) format_with_callback(Format_callback callback, void* data,
             case '.':
                 cur_max_decimals = values[validx++]._;
                 break;
+            case '_': {
+                u16 padd = values[validx++]._;
+                if (padd <= total + wrptr) {
+                    continue;
+                }
+                u16 diff = padd - (total + wrptr);
+                if (diff > FMT_BUFSZ - wrptr) {
+                    errno err =
+                        format_writeout_buffer(callback, data, buffer, wrptr);
+                    if (err) {
+                        return Err(usize, err);
+                    }
+                    total += wrptr;
+                    wrptr = 0;
+                }
+
+                while (diff-- > 0) {
+                    buffer[wrptr++] = ' ';
+                }
+                break;
+            }
             case '0':
                 cur_zero_fill = values[validx++]._;
                 break;
@@ -225,6 +245,7 @@ Result(usize) format_with_callback(Format_callback callback, void* data,
                         buffer + wrptr, FMT_BUFSZ - wrptr, value,
                         cur_max_decimals, cur_zero_fill);
                 }
+                wrptr += num_written.val;
                 break;
             }
             case 's': {
@@ -300,7 +321,17 @@ static Result(usize) format_buffer_callback(char* buf, usize len, void* data) {
     return Ok(usize, len);
 }
 
-Result(usize) buf_format(char* buf, usize len, const Str format, FormatArgs values) {
+Result(usize)
+    buf_format(char* buf, usize len, const Str format, FormatArgs values) {
     u64 args[2] = {(u64)&buf, (u64)&len};
     return format_with_callback(format_buffer_callback, &args, format, values);
+}
+
+Result(usize) Str_format_into(Str* str, Str format, FormatArgs values) {
+    Result(usize) num_formatted =
+        buf_format(str->buf, str->size, format, values);
+    if (num_formatted.ok) {
+        str->len = num_formatted.val;
+    }
+    return num_formatted;
 }

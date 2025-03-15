@@ -55,3 +55,12 @@ bool buf_eq(void* b1, usize b1_len, void* b2, usize b2_len) {
 
     return true;
 }
+
+Result(usize) buf_find_byte(char* buf, usize len, char byte) {
+    for (usize i = 0; i < len; i++) {
+        if (buf[i] == byte) 
+            return Ok(usize, i);
+    }
+
+    return Err(usize, 0);
+}

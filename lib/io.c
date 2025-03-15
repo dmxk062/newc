@@ -47,3 +47,7 @@ static Result(usize) format_write_callback(char* buffer, usize len, void* data) 
 Result(usize) fd_fwrite_continuous(u32 fd, Str format, Format_value* values) {
     return format_with_callback(format_write_callback, &fd, format, values);
 }
+
+void fprint(Str format, FormatArgs values) {
+    fd_fwrite_continuous(IO_Stdout, format, values);
+}

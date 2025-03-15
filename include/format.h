@@ -21,4 +21,6 @@ Result(usize) buf_format(char* buf, usize buf_len, const Str format, FormatArgs 
 typedef Result(usize) (*Format_callback)(char* buf, usize len, void* data);
 Result(usize) format_with_callback(Format_callback callback, void* data, const Str format, FormatArgs values);
 
+Result(usize) Str_format_into(Str* str, Str format, FormatArgs values);
+
 #define F(...) ((FormatArgs){__VA_ARGS__})

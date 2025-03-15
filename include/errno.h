@@ -144,4 +144,7 @@ enum LibError : i16 {
     LE_OutOfRange = 1,
     LE_InvalidFormatSpec = 2,
     LE_BufTooSmall = 3,
+    LE_BufTooShort = 4,
+    LE_NotNumeric = 5,
+    LE_InvalidBase = 5,
 };

@@ -25,3 +25,4 @@ Result(usize) fd_read(u32 fd, void* buf, usize size);
 void print(Str str);
 
 Result(usize) fd_fwrite_continuous(u32 fd, Str format, FormatArgs values);
+void fprint(Str format, FormatArgs values);
