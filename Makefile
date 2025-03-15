@@ -22,7 +22,6 @@ SRC_A = $(wildcard asm/*.S)
 OBJ_A = $(addprefix $(BUILDDIR)/, $(SRC_A:.S=.o))
 
 SRC_TEST = $(wildcard test/*)
-OUT_TEST = $(notdir $(SRC_TEST))
 
 LIBRARY = $(BUILDDIR)/newc.o
 
@@ -33,11 +32,11 @@ $(BUILDDIRS):
 clean:
 	@rm -rf $(BUILDDIRS) build
 
-$(OUT_TEST): $(LIBRARY)
-	@mkdir -p "$(BUILDDIR)/test/$@"
-	$(CC) $(CCFLAGS) $(wildcard test/$@/*) $(LIBRARY) -o $(BUILDDIR)/$(OUT_TEST)
+$(BUILDDIR)/%: $(LIBRARY) test/%/*.c
+	@mkdir -p $(@D)
+	$(CC) $(CCFLAGS) -o $@ $^
 
-tests: $(OUT_TEST)
+tests: $(patsubst test/%, $(BUILDDIR)/%, $(SRC_TEST))
 
 $(LIBRARY): $(OBJ_A) $(OBJ_C) $(BUILDDIRS)
 	ld -r $(LDFLAGS) -o $(LIBRARY) $(OBJ_C) $(OBJ_A)

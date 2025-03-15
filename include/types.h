@@ -68,7 +68,7 @@ typedef char* zstr;
 #define Result(name) __result_t_##name
 #define Ok(name, ...) ((Result(name)){.ok = true, .val = (__VA_ARGS__)})
 #define Err(name, ...) ((Result(name)){.ok = false, .err = (__VA_ARGS__)})
-#define return_SysRes(name, ...) return ((Result(name)){.ok = ((__VA_ARGS__) < 0), .val = (__VA_ARGS__)})
+#define return_SysRes(name, ...) return ((Result(name)){.ok = ((__VA_ARGS__) > 0), .val = (__VA_ARGS__)})
 
 #define Result_define_with_ptr(type)                                           \
     Result_define(type, type);                                                 \

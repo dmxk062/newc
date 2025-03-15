@@ -143,4 +143,5 @@ enum SysError : i16 {
 enum LibError : i16 {
     LE_OutOfRange = 1,
     LE_InvalidFormatSpec = 2,
+    LE_BufTooSmall = 3,
 };
