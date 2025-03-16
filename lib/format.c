@@ -56,6 +56,23 @@ Result(usize) buf_format_int(char* dst, usize dst_len, u64 val, u8 base,
 
 Result(usize) buf_format_float(char* dst, usize dst_len, f64 val,
                                u8 max_decimals, u8 zero_fill) {
+
+    if (val >= F_INFINITY) {
+        Str st = S("infinity");
+        if (dst_len < st.len) {
+            return Err(usize, LE_BufTooSmall);
+        }
+        buf_copy(dst, st.buf, st.len);
+        return Ok(usize, st.len);
+    } else if (val <= -F_INFINITY) {
+        Str st = S("-infinity");
+        if (dst_len < st.len) {
+            return Err(usize, LE_BufTooSmall);
+        }
+        buf_copy(dst, st.buf, st.len);
+        return Ok(usize, st.len);
+    }
+
     static const char digits[] = "0123456789";
     bool is_negative = val < 0;
     if (is_negative) {

@@ -8,7 +8,7 @@ ArgNamed named[] = {
 };
 
 #define MAX_NUMS 16384
-f64 numbers[MAX_NUMS];
+f64 numbers[MAX_NUMS] = {};
 usize received_numbers = 0;
 
 ArgPositional positional[] = {

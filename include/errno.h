@@ -147,4 +147,5 @@ enum LibError : i16 {
     LE_BufTooShort = 4,
     LE_NotNumeric = 5,
     LE_InvalidBase = 5,
+    LE_KeyNotFound = 6,
 };

@@ -26,7 +26,7 @@ Str* Str_new(usize size) {
 }
 
 void Str_free(Str* str) {
-    free(str - sizeof(Str));
+    free(str);
 }
 
 bool Str_eq(Str s1, Str s2) {
